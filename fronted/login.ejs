@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="end">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+    <head>
+        <title>Smart Home</title>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Link devices to Google</h2>
+            <% if (message != "") { %>
+                <h3 class="alert alert-danger"><%= message %></h3>
+            <% } %>
+            <form action='/login' method='post' id='loginform'>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input name="username" class="form-control"></input>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input name="password" class="form-control" type="password"></input>
+                </div>
+                <input type="hidden" name="client_id">
+                <input type="hidden" name="redirect_uri">
+                <input type="hidden" name="state">
+                <button type="submit" onclick="formSubmit()" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+        <script>
+            function getURIParameters() {
+                // Get query string
+                let queryString = window.location.search.substr(1);
+                // Split each parameter and make then to key-value pairs
+                let parametersArray = queryString.split('&');
+                let parameters = {};
+                for(let i = 0; i < parametersArray.length; i++) {
+                    let splitedParam = parametersArray[i].split('=');
+                    parameters[splitedParam[0]] = splitedParam[1];
+                }
+                return parameters;
+            }
+            function formSubmit() {
+                console.log("function formSubmit");
+                let parameters = getURIParameters();
+                console.log(parameters);
+                // Set each hidder input from the query parameters
+                document.querySelector('[name="client_id"]').value = parameters["client_id"];
+                document.querySelector('[name="redirect_uri"]').value = parameters["redirect_uri"];
+                document.querySelector('[name="state"]').value = parameters["state"];
+                document.querySelector('#loginform').submit();
+            }
+        </script>
+    </body>
+</html>
