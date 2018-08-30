@@ -1,4 +1,3 @@
-const fetch = require('node-fetch');
 const colors = require('colors');
 const configuration = require('./configuration/configuration.js');
 const dataStore = require('./data/data.js');
