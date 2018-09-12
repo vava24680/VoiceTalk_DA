@@ -23,7 +23,7 @@ function generateRandomString() {
   return Math.floor(Math.random() * 100000000000000000000000000000000000000000).toString(36);
 }
 
-auth.getAccessToken = function (request) {
+auth.getAccessTokenFromHeader = function (request) {
   return request.headers.authorization ? request.headers.authorization.split(' ')[1] : null;
 };
 
@@ -449,5 +449,5 @@ function login(request, response) {
 module.exports.registerAuthorization = registerAuthorization;
 module.exports.generateRandomString = generateRandomString;
 module.exports.generateUid = generateUid;
-module.exports.getAccessToken = auth.getAccessToken;
+module.exports.getAccessTokenFromHeader = auth.getAccessTokenFromHeader;
 module.exports.getUid = auth.getUid;

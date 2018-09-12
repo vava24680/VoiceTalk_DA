@@ -13,7 +13,7 @@ function DAI(app) {
   app.post('/smarthome', (request, response) => {
     let requestData = request.body;
 
-    let accessToken = authProvider.getAccessToken(request);
+    let accessToken = authProvider.getAccessTokenFromHeader(request);
     console.log("accessToken, ", accessToken);
     let uid = dataStore.authorizationData.tokens[accessToken].uid;
     if (!requestData.inputs) {
