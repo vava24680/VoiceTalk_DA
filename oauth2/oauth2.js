@@ -438,14 +438,6 @@ function registerAuthorization(app) {
     });
   }
 
-function login(request, response) {
-  response.render('../fronted/login.html', {
-    redirect: encodeURIComponent(request.query.redirect),
-    client_id: request.query.client_id,
-    state: request.query.state,
-    redirect_uri: encodeURIComponent(request.query.redirect_uri)
-  });
-}
 module.exports.registerAuthorization = registerAuthorization;
 module.exports.generateRandomString = generateRandomString;
 module.exports.generateUid = generateUid;
