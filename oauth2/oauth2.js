@@ -8,14 +8,17 @@ const DAN = require('../DAN/DAN.js');
 let oauth2Model = {};
 let auth = {};
 
+// Generate Uid and return it
 function generateUid() {
   let uid = Math.floor(Math.random() * 1000).toString();
+  // If the gengerated uid repeated, re-generate it again
   while(authDataStore.users[uid]) {
     uid = generateUid();
   }
   return uid;
 }
 
+// Generate random string
 function generateRandomString() {
   return Math.floor(Math.random() * 100000000000000000000000000000000000000000).toString(36);
 }
@@ -161,10 +164,12 @@ function registerAuthorization(app) {
     }
 
     // Check the clientId is registed or not
+    // if not, response with status code 500 with "cliendId invalid" message
     if(!authDataStore.clients[clientId]) {
       return response.status(500).send(`client_id ${clientId} invalid`);
     }
 
+    // Save the client information to session
     request.session.clientId = clientId;
     request.session.redirectURI = redirectURI;
     request.session.state = state;
@@ -182,14 +187,15 @@ function registerAuthorization(app) {
     console.log("user ".blue, user);
 
     // Check the user is provided or not
+    // if not, redirect to login page
     if(!user) {
       return response.redirect(util.format('/login?client_id=%s&redirect_uri=%s&redirect=%s&state=%s',
       clientId, encodeURIComponent(redirectURI), request.path, state
       ));
     }
 
-    // Authorization request and User authenitcation are complete
-    // and user grant the access request of the client
+    // Authorization request and user authenitcation are complete
+    // and user grants the access request issued by client
     console.log("Authorization is granted".red);
     console.log("User authentication is granted".red);
 
@@ -219,7 +225,8 @@ function registerAuthorization(app) {
     console.log("session id, ", request.session.id.red);
     let user = oauth2Model.getUser(request.body.username, request.body.password);
 
-    // Check if the user data is present
+    // Check if the user data is correct
+    // if not, redirect to login page with "登入失敗，請重新登入" message
     if(!user) {
       console.log("Not a user");
       return response.render('login', {message: "登入失敗，請重新登入"});
@@ -231,7 +238,10 @@ function registerAuthorization(app) {
     }
 
     console.log("Logging ", user.name);
+
+    // Save the user to session
     request.session.user = user;
+
     console.log("request.session.user, ", JSON.stringify(request.session.user));
 
     // Successful login should send the user back to /oauth.
