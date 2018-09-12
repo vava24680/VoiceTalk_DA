@@ -113,14 +113,6 @@ oauth2Model.getUser = function(username, password) {
   let userId = authDataStore.usernames[username];
   if(!userId) {
     console.log(`${userId} is not a valid user`);
-    /*
-    oauth2Model.generateUser(username, password);
-    userId = authDataStore.usernames[username];
-    if(!userId) {
-      console.log(`Failed to generate user ${userId}`);
-      return false;
-    }
-    */
   }
 
   let user = authDataStore.users[userId];
