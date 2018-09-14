@@ -4,11 +4,17 @@ const dataStore = require('./data/data.js');
 const DAN = require('./DAN/DAN.js');
 const authProvider = require('./oauth2/oauth2.js');
 
+let _repostToGoogle = "SUCCESS";
+
 function DAI(app) {
   console.log("smarthome app registerAgent");
   app.get('/labdevices', (request, response) => {
-    response.status(200).json(dataStore.labDevices);
+    console.log(dataStore.getDevices());
+    response.status(200).render('devices', {devices: dataStore.getDevices()});
   });
+  app.get('/labdevicesinjson', (request, response) => {
+    response.status(200).json( {devices: dataStore.labDevices} );
+  })
 
   app.post('/smarthome', (request, response) => {
     let requestData = request.body;
@@ -245,4 +251,16 @@ function DAI(app) {
   }
 }
 
+// Return the response to google
+function getResponseToGoogle() {
+  return _responstToGoogle;
+}
+
+// set the response to google
+function setResponseToGoogle(responseToGoogle) {
+  _responseToGoogle = responseToGoogle;
+}
+
 module.exports.DAI = DAI;
+module.exports.getResponseToGoogle = getResponseToGoogle;
+module.exports.setResponseToGoogle = setResponseToGoogle;
