@@ -10,6 +10,8 @@ const colors = require('colors');
 const util = require('util');
 const randomstring = require('randomstring');
 const request = require('request');
+const Q = require('q');
+const getmac = require('getmac');
 
 const configuration = require('./configuration/configuration.js');
 const smartHomeApp = require('./DAI.js');
@@ -85,10 +87,24 @@ app.requestSync = function(uid) {
 function registerAgent(app) {
   smartHomeApp.DAI(app);
 }
+
 function registerAuthorization(app) {
   authProvider.registerAuthorization(app);
 }
 
+/**
+ * Using promise to get macaddress of given network interface in configuration/configuration.js
+ * First, it will get the macaddress
+ * Second, the macaddress will be stored to config object
+ */
+function getMacAddress() {
+  let getmacPromise = Q.nfbind(getmac.getMac, {iface: 'eth0'});
+  getmacPromise()
+    .then((macAddress) => {console.log(macAddress.green); return macAddress})
+    .then(configuration.setMacAddress);
+}
+
+getMacAddress();
 registerAgent(app);
 registerAuthorization(app);
 
