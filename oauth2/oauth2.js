@@ -1,6 +1,8 @@
 const express = require('express');
 const util = require('util');
 const session = require('express-session');
+const getmac = require('getmac');
+const Q = require('q');
 
 const configuration = require('../configuration/configuration.js');
 const authDataStore = require('../data/data.js').authorizationData;
