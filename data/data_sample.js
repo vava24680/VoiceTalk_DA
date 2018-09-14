@@ -53,6 +53,12 @@ authorizationData.clients = {
 
 // Authorization code
 authorizationData.authorizationCodes = {};
+
+// Return labDevices object
+function getDevices() {
+  return labDevices;
+}
+
 /*
  * Structure of labDevices
  * [
@@ -79,3 +85,4 @@ authorizationData.authorizationCodes = {};
 
 module.exports.labDevices = labDevices;
 module.exports.authorizationData = authorizationData;
+module.exports.getDevices = getDevices;
