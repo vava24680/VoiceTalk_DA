@@ -1,6 +1,9 @@
 const request = require('request');
 const getMAC = require('getmac');
 const colors = require('colors');
+const Q = require('q');
+const configuration = require('../configuration/configuration.js');
+
 // HTTP-URI with domain name resolved to IoTtalk server which will be used,
 // if the port used by IoTtalk API is not standard port, make sure the custom port is provided.
 const hostURL = "";
