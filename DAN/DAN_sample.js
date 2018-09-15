@@ -32,8 +32,14 @@ function registerOnIoTtalk() {
   options.method = "POST";
   options.body = body;
   options.json = true;
+  options.timeout = 2000;
   request(options, (err, response, body) => {
-    if(response.statusCode === 200) {
+    if (err) {
+      console.log("Error:".red, err.code.red);
+      console.log( err.connect === true ? "Connection timeout".red : "Other timeout error".red );
+      process.exit(0);
+    }
+    else if(response.statusCode == 200) {
       console.log("Registration succeed".green);
       qObject.resolve();
     }
