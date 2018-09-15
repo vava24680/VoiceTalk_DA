@@ -4,7 +4,7 @@ const dataStore = require('./data/data.js');
 const DAN = require('./DAN/DAN.js');
 const authProvider = require('./oauth2/oauth2.js');
 
-let _repostToGoogle = "SUCCESS";
+let _responseToGoogle = "SUCCESS";
 
 function DAI(app) {
   console.log("smarthome app registerAgent");
@@ -253,7 +253,7 @@ function DAI(app) {
 
 // Return the response to google
 function getResponseToGoogle() {
-  return _responstToGoogle;
+  return _responseToGoogle;
 }
 
 // set the response to google
