@@ -98,7 +98,7 @@ function registerAuthorization(app) {
  * Second, the macaddress will be stored to config object
  */
 function getMacAddress() {
-  let getmacPromise = Q.nfbind(getmac.getMac, {iface: 'eth0'});
+  let getmacPromise = Q.nfbind(getmac.getMac, {iface: configuration.iface});
   getmacPromise()
     .then((macAddress) => {console.log(macAddress.green); return macAddress})
     .then(configuration.setMacAddress);
