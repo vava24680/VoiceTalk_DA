@@ -216,7 +216,7 @@ function DAI(app) {
       let responseArray = data.commands[i].devices.map((element) => {
         let deviceReturnObject = {};
         deviceReturnObject.ids = [ element.id ];
-        deviceReturnObject.status = "SUCCESS";
+        deviceReturnObject.status = getResponseToGoogle();
         return deviceReturnObject;
       });
       responseBody.payload["commands"] = responseArray;
