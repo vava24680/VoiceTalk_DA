@@ -22,13 +22,6 @@ const body = {
   }
 };
 
-function getMacAddress() {
-  getMAC.getMac((err, macAddress) => {
-    if(err) throw err
-      console.log(macAddress);
-  });
-}
-
 function registerOnIoTtalk() {
   let options = {};
   options.uri = hostURL + "/" + macAddress;
@@ -76,7 +69,7 @@ function postDataToIoTtalk(requestData, idf) {
     }
   });
 }
-module.exports.getMacAddress = getMacAddress;
+
 module.exports.registerOnIoTtalk = registerOnIoTtalk;
 module.exports.deRegisterOnIoTtalk = deRegisterOnIoTtalk;
 module.exports.postDataToIoTtalk = postDataToIoTtalk;
