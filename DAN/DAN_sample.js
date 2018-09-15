@@ -26,19 +26,23 @@ const body = {
 };
 
 function registerOnIoTtalk() {
+  let qObject = Q.defer();
   let options = {};
-  options.uri = hostURL + "/" + macAddress;
+  options.uri = hostURL + "/" + configuration.getMacAddress();
   options.method = "POST";
   options.body = body;
   options.json = true;
   request(options, (err, response, body) => {
     if(response.statusCode === 200) {
-      console.log("Register Successfully".green);
+      console.log("Registration succeed".green);
+      qObject.resolve();
     }
     else {
-      console.log("Error Body :".red, body.red);
+      console.log("Registration failed".red);
+      qObject.reject({statusCode: response.statusCode, error: body});
     }
   });
+  return qObject.promise;
 }
 
 function deRegisterOnIoTtalk() {
