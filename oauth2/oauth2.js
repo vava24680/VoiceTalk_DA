@@ -393,22 +393,7 @@ function registerAuthorization(app) {
 
     console.log("Get access token successfully".green);
     if (configuration.isIoTtalkUsing) {
-      DAN.registerOnIoTtalk()
-        .then(
-          (response) => {
-            console.log("Remember to configure the IoTtalk part so the voice controll can be availabe".green);
-            return "SUCCESS";
-          },
-          (response) => {
-            console.log("Status code:", response.statusCode.toString().red);
-            console.log("Please check the error messages below and restart this application".red);
-            console.log("----------------Error Messages----------------".red);
-            console.log("*  ".red + response.error.red + "  *".red);
-            console.log("----------------------end---------------------".red);
-            return "ERROR"
-          }
-        )
-        .done((message) => {DAI.setResponseToGoogle(message)});
+      DAN.registerOnIoTtalk();
     }
     return response.status(200).json(accessToken);
   }
