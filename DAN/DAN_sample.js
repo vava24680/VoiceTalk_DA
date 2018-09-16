@@ -3,6 +3,7 @@ const getMAC = require('getmac');
 const colors = require('colors');
 const Q = require('q');
 const configuration = require('../configuration/configuration.js');
+const DAI = require('../DAI.js');
 
 // HTTP-URI with domain name resolved to IoTtalk server which will be used,
 // if the port used by IoTtalk API is not standard port, make sure the custom port is provided.
@@ -51,6 +52,25 @@ function registerOnIoTtalk() {
   return qObject.promise;
 }
 
+function registerOnIoTtalkUsingPromise() {
+  registerOnIoTtalk()
+    .then(
+      (response) => {
+        console.log("Remember to configure the IoTtalkp part so the voice control can be available".green);
+        return "SUCCESS";
+      },
+      (response) => {
+        console.log("Status code:", response.statusCode.toString().red);
+        console.log("Please check the error messages below and restart this application".red);
+        console.log("----------------Error Messages----------------".red);
+        console.log("* ".red + response.error.red);
+        console.log("----------------------end---------------------".red);
+        return "ERROR";
+      }
+    )
+    .done((message) => {DAI.setResponseToGoogle(message)});
+}
+
 function deRegisterOnIoTtalk() {
   let options = {};
   options.url = hostURL + "/" + macAddress;
@@ -83,6 +103,6 @@ function postDataToIoTtalk(requestData, idf) {
   });
 }
 
-module.exports.registerOnIoTtalk = registerOnIoTtalk;
+module.exports.registerOnIoTtalk = registerOnIoTtalkUsingPromise;
 module.exports.deRegisterOnIoTtalk = deRegisterOnIoTtalk;
 module.exports.postDataToIoTtalk = postDataToIoTtalk;
