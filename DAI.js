@@ -1,4 +1,5 @@
 const colors = require('colors');
+const Q = require('q');
 const configuration = require('./configuration/configuration.js');
 const dataStore = require('./data/data.js');
 const DAN = require('./DAN/DAN.js');
@@ -64,13 +65,57 @@ function DAI(app) {
           break;
         case "action.devices.EXECUTE":
           console.log("This is a EXECUTE request".green);
-          if (configuration.isIoTtalkUsing) {
-            DAN.postDataToIoTtalk(inputData, "GoogleSmarthomeJsonReceiver");
+          if (!configuration.isIoTtalkUsing) {
+            exec({
+              requestId: requestData.requestId,
+              commands: inputData.payload.commands
+            }, response);
           }
-          exec({
-            requestId: requestData.requestId,
-            commands: inputData.payload.commands
-          }, response);
+          else {
+            DAN.postDataToIoTtalk(inputData, "GoogleSmarthomeJsonReceiver")
+              .then(
+                /**
+                 * @param msg:
+                 * [
+                 *  "SUCCESS",
+                 *  "Success"
+                 * ]
+                 */
+                (msg) => { setResponseToGoogle(msg[0]); return msg[1];}
+              )
+              .then(
+                /**
+                 * @param msg:
+                 * "Success"
+                 */
+                (msg) => {
+                  let qObject = Q.defer();
+                  exec({
+                    requestId: requestData.requestId,
+                    commands: inputData.payload.commands
+                  }, response);
+                  if (msg.includes("mac_addr not found")) {
+                    qObject.reject();
+                  }
+                  else if (msg.includes("Success")) {
+                    qObject.resolve();
+                  }
+                  else {
+                    console.log("-------------Error Message----------------".red);
+                    console.log("* ".red, msg.red);
+                    console.log("--------------------end-------------------".red);
+                    qObject.resolve();
+                  }
+                  return qObject.promise;
+                }
+              )
+              .done(
+                () => {},
+                () => {
+                  DAN.registerOnIoTtalk();
+                }
+              );
+          }
           break;
         case "action.devices.DISCONNECT":
           console.log("This is a DISCONNECT request".green);

@@ -85,21 +85,34 @@ function deRegisterOnIoTtalk() {
 }
 
 function postDataToIoTtalk(requestData, idf) {
+  let qObject = Q.defer();
   let options = {};
   options.url = hostURL + "/" + configuration.getMacAddress() + "/" + idf;
   options.method = "PUT";
   options.json = true;
   options.body = {data: [ requestData ]};
+  options.timeout = 2000;
   request(options, (err, response, body) => {
-    if(!err && response.statusCode === 200) {
-      console.log("No error when sending data to IoTtalk".green);
+    let msg = [];
+    if (err) {
+      console.log("Seems timeout".red);
+      msg.push("ERROR");
+      msg.push("There are problems with IoTtalk server");
+    }
+    else if( response.statusCode === 200 ) {
+      console.log("Post data to IoTtalk succeed".green);
+      msg.push("SUCCESS");
+      msg.push("Success");
     }
     else {
-      console.log("statusCode".red, response.statusCode.red);
-      console.log("Error when sending data to IoTtalk".red);
-      console.log(JSON.stringify(err).red);
+      console.log("status code,".red, response.statusCode.red);
+      console.log("Post data to IoTtalk failed".red);
+      msg.push("OFFLINE");
+      msg.push(body);
     }
+    qObject.resolve(msg);
   });
+  return qObject.promise;
 }
 
 module.exports.registerOnIoTtalk = registerOnIoTtalkUsingPromise;
