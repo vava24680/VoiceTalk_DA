@@ -72,7 +72,7 @@ function registerOnIoTtalkUsingPromise() {
 
 function deRegisterOnIoTtalk() {
   let options = {};
-  options.url = hostURL + "/" + macAddress;
+  options.url = hostURL + "/" + configuration.getMacAddress();
   options.method = "DELETE";
   request(options, (err, response, body) => {
     if(response.statusCode === 200) {
@@ -86,7 +86,7 @@ function deRegisterOnIoTtalk() {
 
 function postDataToIoTtalk(requestData, idf) {
   let options = {};
-  options.url = hostURL + "/" + macAddress + "/" + idf;
+  options.url = hostURL + "/" + configuration.getMacAddress() + "/" + idf;
   options.method = "PUT";
   options.json = true;
   options.body = {data: [ requestData ]};
