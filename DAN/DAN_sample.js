@@ -1,5 +1,4 @@
 const request = require('request');
-const getMAC = require('getmac');
 const colors = require('colors');
 const Q = require('q');
 const configuration = require('../configuration/configuration.js');
