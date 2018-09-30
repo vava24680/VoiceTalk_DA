@@ -9,13 +9,6 @@ let _responseToGoogle = "SUCCESS";
 
 function DAI(app) {
   console.log("smarthome app registerAgent");
-  app.get('/labdevices', (request, response) => {
-    console.log(dataStore.getDevices());
-    response.status(200).render('devices', {devices: dataStore.getDevices()});
-  });
-  app.get('/labdevicesinjson', (request, response) => {
-    response.status(200).json( {devices: dataStore.labDevices} );
-  })
 
   app.post('/smarthome', (request, response) => {
     let requestData = request.body;
