@@ -113,7 +113,7 @@ function _crawlTypes() {
  * @param {Array} an array contains all device types
  * @return {void}
  */
-function _setDeviceTypesArray(typesArray) {
+function setDeviceTypesArray(typesArray) {
   deviceTypesArray = typesArray;
 }
 
@@ -136,7 +136,7 @@ function crawlTypes() {
   _crawlTypes()
       .done(
         (typesArray) => {
-          _setDeviceTypesArray(typesArray);
+          setDeviceTypesArray(typesArray);
         },
         (failMessage) => {
           console.log(failMessage);
@@ -183,7 +183,7 @@ function _crawlTraits() {
  * @param {Array} an array contains all device traits
  * @return {void}
  */
-function _setDeviceTraitsArray(traitsArray) {
+function setDeviceTraitsArray(traitsArray) {
   deviceTraitsArray = traitsArray;
 }
 
@@ -206,7 +206,7 @@ function crawlTraits() {
   _crawlTraits()
       .done(
         (traitsArray) => {
-          _setDeviceTraitsArray(traitsArray);
+          setDeviceTraitsArray(traitsArray);
         },
         (failMessage) => {
           console.log(failMessage);
