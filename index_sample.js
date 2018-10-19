@@ -17,7 +17,6 @@ const configuration = require('./configuration/configuration.js');
 const smartHomeApp = require('./DAI.js');
 const authProvider = require('./oauth2/oauth2.js');
 
-const requestSyncEndpoint = "https://homegraph.googleapis.com/v1/devices:requestSync?key=";
 const keyCertPath = ""; // The path where the certificate is
 const ca = fs.readFileSync(keyCertPath + ""); // Filled with chain file name
 const privateKey = fs.readFileSync(keyCertPath + ""); // Filled with private key file name
@@ -62,27 +61,6 @@ app.get('/', (request, response) => {
   response.redirect(util.format('/login?client_id=%s&redirect_uri=/fronted&state=pcslab'
     ,configuration.smartHomeGoogleClientID));
 });
-
-app.requestSync = function(uid) {
-  const apiKey = configuration.smartHomeApiKey;
-  let options = {
-    uri: requestSyncEndpoint + apiKey,
-    method: "POST",
-    json: true,
-    bodt: {
-      agentUserId: uid
-    }
-  };
-  request(options, (err, response, body) => {
-    if(response.statusCode === 200) {
-      console.log("Request Sync successfully".green);
-    }
-    else {
-      console.log("Request Sync Failed".red);
-      console.log("Error body".red, JSON.stringify(body).red);
-    }
-  });
-}
 
 function registerAgent(app) {
   smartHomeApp.DAI(app);
