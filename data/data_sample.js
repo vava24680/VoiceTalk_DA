@@ -69,7 +69,10 @@ authorizationData.clients = {
 // Authorization code
 authorizationData.authorizationCodes = {};
 
-// Return labDevices object
+/*
+ * Return all devices
+ * @return {Array} This returns all devices
+ */
 function getDevices() {
   return labDevices;
 }
@@ -109,8 +112,9 @@ function _crawlTypes() {
 }
 
 /**
- * set the value of variable `deviceTypesArray`
- * @param {Array} an array contains all device types
+ * Set the value of variable `deviceTypesArray`
+ * @param {Array} typesArray This is a param containing
+ *     all device types
  * @return {void}
  */
 function setDeviceTypesArray(typesArray) {
@@ -118,18 +122,16 @@ function setDeviceTypesArray(typesArray) {
 }
 
 /**
- * return an array with all device types
- * @return {Array} an array contains all device types
+ * Return an array with all device types
+ * @return {Array} This returns all device types
  */
-function getDeviceTypesArray(typesArray) {
+function getDeviceTypesArray() {
   return deviceTypesArray;
 }
 
 /**
- * crawl all device types by calling
- * function `_crawlTypes` and
- * save them into an array by using
- * function `_setDeviceTypesArray`
+ * Crawl all device types by calling function `_crawlTypes` and save them to
+ *     array `deviceTypesArray` by function `setDeviceTypesArray`
  * @return {void}
  */
 function crawlTypes() {
@@ -145,9 +147,8 @@ function crawlTypes() {
 }
 
 /**
- * use `request` to crawl the pages containing
- * all device traits and use `cheerio` to get desired
- * data and then save them to promise object
+ * Use `request` to crawl the pages containing all device traits and use
+ *     `cheerio` to get desired data and then save them to promise object
  * @return {promise} promise object with an array
  *     containing all device traits
  */
@@ -180,7 +181,8 @@ function _crawlTraits() {
 
 /**
  * set the value of variable `deviceTraitsArray`
- * @param {Array} an array contains all device traits
+ * @param {Array} traitsArray This is a param containing
+ *     all device traits
  * @return {void}
  */
 function setDeviceTraitsArray(traitsArray) {
@@ -189,17 +191,16 @@ function setDeviceTraitsArray(traitsArray) {
 
 /**
  * return an array with all device traits
- * @return {Array} an array contains all device traits
+ * @return {Array} This returns all device traits
  */
 function getDeviceTraitsArray() {
   return deviceTraitsArray;
 }
 
 /**
- * crawl all device traits by calling
- * function `_crawlTraits` and
- * save them into an array by using
- * function `_setDeviceTraitsArray`
+ * Crawl all device traits by calling function `_crawlTraits`
+ *     and save them to array `deviceTraitsArray` by function
+ *     `setDeviceTraitsArray`
  * @return {void}
  */
 function crawlTraits() {
