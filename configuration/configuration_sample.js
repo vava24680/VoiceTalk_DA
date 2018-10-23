@@ -33,6 +33,6 @@ exports.smartHomeGoogleClientSecret = config.smartHomeGoogleClientSecret;
 exports.smartHomeApiKey = config.smartHomeApiKey;
 exports.isIoTtalkUsing = config.isIoTtalkUsing;
 module.exports.iface = config.iface;
-module.exports.requestSyncEndpoint = requestSyncEndpoint;
+module.exports.requestSyncEndpoint = config.requestSyncEndpoint;
 module.exports.setMacAddress = setMacAddress;
 module.exports.getMacAddress = getMacAddress;
