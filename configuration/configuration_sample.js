@@ -15,6 +15,7 @@ config.smartHomeApiKey = "";
 config.isIoTtalkUsing = false;
 // Network interface that the machine user
 config.iface = "";
+config.requestSyncEndpoint = 'https://homegraph.googleapis.com/v1/devices:requestSync?key=';
 
 // Set the macaddress to config object
 function setMacAddress(macAddress) {
@@ -27,9 +28,11 @@ function getMacAddress() {
 }
 
 exports.productionPort = config.productionPort;
-exports.smartHomeGoogleClientID = config.smartHomeGoogleClientID;exports.smartHomeGoogleClientSecret = config.smartHomeGoogleClientSecret;
+exports.smartHomeGoogleClientID = config.smartHomeGoogleClientID;
+exports.smartHomeGoogleClientSecret = config.smartHomeGoogleClientSecret;
 exports.smartHomeApiKey = config.smartHomeApiKey;
 exports.isIoTtalkUsing = config.isIoTtalkUsing;
 module.exports.iface = iface;
+module.exports.requestSyncEndpoint = requestSyncEndpoint;
 module.exports.setMacAddress = setMacAddress;
 module.exports.getMacAddress = getMacAddress;
