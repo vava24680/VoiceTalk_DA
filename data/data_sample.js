@@ -33,6 +33,14 @@ let deviceTraitsArray = [];
  * }
  */
 authorizationData.users = {
+  /* User structure example
+  '0000': {
+    uid: '0000',
+    name: 'develop',
+    password: 'developuse',
+    tokens: [],
+  }
+  */
 };
 
 authorizationData.usernames = {};
