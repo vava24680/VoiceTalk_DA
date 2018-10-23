@@ -121,7 +121,7 @@ function requestSync(uid) {
     json: true,
     body: {
       agentUserId: uid
-    }.
+    },
   }
   request(options, (error, response, body) => {
     if (response.ststusCode == 200) {
