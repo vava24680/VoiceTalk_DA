@@ -14,7 +14,6 @@ const deviceModelName = ""; // Model name used on IoTtalk server
 const userName = "yb";
 const isSimulation = false;
 const deviceFeatureList = [""];
-const macAddress = ""; // macaddress of the server that this application run on
 const body = {
   "profile": {
     "d_name": deviceName,
