@@ -115,6 +115,25 @@ function postDataToIoTtalk(requestData, idf) {
   return qObject.promise;
 }
 
+function requestSync(uid) {
+  let options = {
+    uri: configuration.requestSyncEndpoint + configuration.smartHomeApiKey,
+    method: 'POST',
+    json: true,
+    body: {
+      agentUserId: uid
+    }.
+  }
+  request(options, (error, response, body) => {
+    if (response.ststusCode == 200) {
+      console.log('Request sync successfully'.green);
+    } else {
+      console.log('Request sync failed'.red);
+    }
+  });
+}
+
 module.exports.registerOnIoTtalk = registerOnIoTtalkUsingPromise;
 module.exports.deRegisterOnIoTtalk = deRegisterOnIoTtalk;
 module.exports.postDataToIoTtalk = postDataToIoTtalk;
+module.exports.requestSync = requestSync;
