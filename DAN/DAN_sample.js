@@ -83,10 +83,10 @@ function deRegisterOnIoTtalk() {
   });
 }
 
-function postDataToIoTtalk(requestData, idf) {
+function postDataToIoTtalk(requestData) {
   let qObject = Q.defer();
   let options = {};
-  options.url = hostURL + "/" + configuration.getMacAddress() + "/" + idf;
+  options.url = hostURL + "/" + configuration.getMacAddress() + "/" + deviceFeatureList[0];
   options.method = "PUT";
   options.json = true;
   options.body = {data: [ requestData ]};

@@ -65,7 +65,7 @@ function DAI(app) {
             }, response);
           }
           else {
-            DAN.postDataToIoTtalk(inputData, "GoogleSmarthomeJsonReceiver")
+            DAN.postDataToIoTtalk(inputData)
               .then(
                 /**
                  * @param msg:
